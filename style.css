@@ -1,0 +1,23 @@
+.index_top_field {
+    background-color: #51A8DD;
+    z-index: -1;
+    height: 60px;
+    
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    
+    position: fixed;
+}
+
+.index_top_field_button{
+    height: 46px;
+    width: 100px;
+    left: 5px;
+    top: 7px;
+    
+    background-color: #51A8DD;
+    border: 2px solid #FCFAF2;
+
+    
+}
