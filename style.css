@@ -10,7 +10,7 @@
     position: fixed;
 }
 
-.index_top_field_button{
+.home_button{
     height: 46px;
     width: 100px;
     left: 5px;
@@ -19,5 +19,27 @@
     background-color: #51A8DD;
     border: 2px solid #FCFAF2;
 
+    margin: 0;
+    position: fixed;
+}
+
+button:hover{
+    background-color: #58B2DC;
+}
+
+button:active{
+    background-color: #72bbdd;
+}
+
+.github_button{
+    height: 46px;
+    width: 100px;
+    left: 110px;
+    top: 7px;
     
+    background-color: #51A8DD;
+    border: 2px solid #FCFAF2;
+
+    margin: 0;
+    position: fixed;
 }
