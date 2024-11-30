@@ -1,5 +1,85 @@
+:root {
+    --white1: #FCFAF2; 
+    --blue1: #51A8DD;
+    --blue2: #2EA9DF;
+    --blue3: #58B2DC;
+    --black1: #1C1C1C;
+    --text_c: #1C1C1C;
+    --background_c: #FCFAF2;
+    --border_c: #1C1C1C;
+}
+
+/* 黑暗模式顏色設定 */
+.dark_mode {
+    --text_c: #FCFAF2;
+    --background_c: #1C1C1C;
+    --border_c: #FCFAF2;
+}
+
+body {
+    background-color: var(--background_c);
+    height: 1000px;
+}
+
+/* 黑白模式的按鈕 */
+#darkmode_toggle {
+    width: 0px;
+    height: 0px;
+    visibility: hidden;
+}
+
+.darkm_t {
+    width: 100px;
+    height: 46px;
+    border-radius: 46px;
+
+    position: relative;
+    display: block;
+    left: 1000px;
+    top: 10px;
+
+    background-color: var(--blue1);
+    border: 2px solid var(--blue1);
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.darkm_t:hover {
+    border: 2px solid var(--border_c);
+    transition: 0.8s;
+}
+
+.darkm_t:after {
+    content: "";
+    width: 36px;
+    height: 36px;
+    border-radius: 36px;
+
+    position: absolute;
+    top: 5px;
+    left: 5px;
+
+    background-color: var(--white1);
+    transition: 0.2s;
+}
+
+#darkmode_toggle:checked + .darkm_t:hover {
+    border: 2px solid #1C1C1C;
+    transition: 0.2s;
+} 
+
+#darkmode_toggle:checked + .darkm_t:after {
+    left: 95px;
+    transform: translateX(-100%);
+    background-color: var(--black1);
+    border: #1C1C1C;
+    transition: 0.2s;
+}
+/* 黑白模式的按鈕 */
+
 .index_top_field {
-    background-color: #51A8DD;
+    background-color: var(--blue1);
     z-index: -1;
     height: 60px;
     
@@ -16,19 +96,21 @@
     left: 5px;
     top: 7px;
     
-    background-color: #51A8DD;
-    border: 2px solid #FCFAF2;
+    background-color: var(--blue1);
+    border: 2px solid var(--blue1);
 
     margin: 0;
     position: fixed;
 }
 
 button:hover{
-    background-color: #58B2DC;
+    border: 2px solid var(--white1);
+    transition: 0.8s;
+    
 }
 
 button:active{
-    background-color: #72bbdd;
+    background-color: var(--blue3);
 }
 
 .github_button{
@@ -37,9 +119,17 @@ button:active{
     left: 110px;
     top: 7px;
     
-    background-color: #51A8DD;
-    border: 2px solid #FCFAF2;
+    background-color: var(--blue1);
+    border: 2px solid var(--blue1);
 
     margin: 0;
     position: fixed;
+}
+
+.simple_word_card {
+    width: 240px;
+    height: 300px;
+    border-radius: 30px;
+
+    border: 5px solid var(--border_c);
 }

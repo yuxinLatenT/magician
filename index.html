@@ -3,20 +3,26 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="icon" href="./file/icons8-witch's-hat-64.png">
+        <link rel="icon" href="./file/icons8-witch's-hat-64.png" >
         <title>魔法師訓練!!</title>
         <link rel="stylesheet" href="style.css">
         <script src="https://kit.fontawesome.com/31ec06cdf8.js" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="sakana">
     </head>
-    <body style="background-color: #FCFAF2; height: 1000px;">
+    <body>
         <div class="index_top_field"></div>
         <div>
-            <button class="home_button" onclick="home_btn_onclick(this)"><i class="fa-solid fa-house-chimney fa-2xl" style="color: #ffffff;"></i></button>
+            <button class="home_button" onclick="home_btn_onclick(this)"><i class="fa-solid fa-house-chimney fa-2xl" style="color: #fcfaf2;"></i></button>
             <button class="github_button" onclick="github_btn_onclick(this)"><i class="fa-brands fa-github fa-2xl" style="color: #fcfaf2;"></i></button>
-            <button class="dark_or_light" onclick="dark_or_light_change(this)"></button>
         </div>
-
+        <div>
+            <input type="checkbox" id="darkmode_toggle"/>
+            <label for="darkmode_toggle" class="darkm_t"></label>
+        </div>
+        <div>
+            <p class="simple_word_card">A</p>
+        </div>
         <script src="main.js"></script>
     </body>
 </html>
