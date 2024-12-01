@@ -1,5 +1,6 @@
 :root {
-    --white1: #FCFAF2; 
+    --white1: #FCFAF2;
+    --yellow1: #F9BF45;
     --blue1: #51A8DD;
     --blue2: #2EA9DF;
     --blue3: #58B2DC;
@@ -19,6 +20,7 @@
 body {
     background-color: var(--background_c);
     height: 1000px;
+    transition: 1s;
 }
 
 /* 黑白模式的按鈕 */
@@ -33,10 +35,10 @@ body {
     height: 46px;
     border-radius: 46px;
 
-    position: relative;
+    position: fixed;
     display: block;
-    left: 1000px;
-    top: 10px;
+    right: 5px;
+    top: 5px;
 
     background-color: var(--blue1);
     border: 2px solid var(--blue1);
@@ -46,7 +48,7 @@ body {
 }
 
 .darkm_t:hover {
-    border: 2px solid var(--border_c);
+    border: 2px solid var(--background_c);
     transition: 0.8s;
 }
 
@@ -60,22 +62,57 @@ body {
     top: 5px;
     left: 5px;
 
-    background-color: var(--white1);
-    transition: 0.2s;
+    background-color: var(--background_c);
+    transition: 0.8s;
 }
 
 #darkmode_toggle:checked + .darkm_t:hover {
-    border: 2px solid #1C1C1C;
-    transition: 0.2s;
+    border: 2px solid var(--background_c);
+    transition: 0.8s;
 } 
 
 #darkmode_toggle:checked + .darkm_t:after {
     left: 95px;
     transform: translateX(-100%);
-    background-color: var(--black1);
-    border: #1C1C1C;
-    transition: 0.2s;
+    background-color: var(--background_c);
+    border: var(--border_c);
+    transition: 0.8s;
 }
+
+/* darkmode toggle icon set */
+label svg {
+    position: fixed;
+    top: 13px;
+    z-index: 10;
+}
+
+label svg.sun {
+    right: 68px;
+}
+label svg.moon path {
+    stroke: var(--yellow1);
+}
+#darkmode_toggle:checked + label svg.sun path{
+    stroke: var(--blue1);
+
+    transition: 0.8s;
+}
+
+label svg.moon {
+    right: 14px;
+}
+label svg.moon path {
+    stroke: var(--blue1);
+    fill: none;
+}
+#darkmode_toggle:checked + label svg.moon path {
+    stroke: var(--yellow1);
+    fill: var(--yellow1);
+    
+    transition: 0.8s;
+}
+/* darkmode toggle icon set */
+
 /* 黑白模式的按鈕 */
 
 .index_top_field {
@@ -101,12 +138,13 @@ body {
 
     margin: 0;
     position: fixed;
+
+    transition: 0.8s;
 }
 
 button:hover{
-    border: 2px solid var(--white1);
+    border: 2px solid var(--background_c);
     transition: 0.8s;
-    
 }
 
 button:active{
@@ -124,12 +162,17 @@ button:active{
 
     margin: 0;
     position: fixed;
+
+    transition: 0.8s;
 }
 
 .simple_word_card {
     width: 240px;
     height: 300px;
     border-radius: 30px;
+
+    top: 100px;
+    position: relative;
 
     border: 5px solid var(--border_c);
 }
