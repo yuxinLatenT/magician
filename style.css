@@ -44,7 +44,7 @@ body {
     border: 2px solid var(--blue1);
 
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.8s;
 }
 
 .darkm_t:hover {
@@ -84,12 +84,14 @@ label svg {
     position: fixed;
     top: 13px;
     z-index: 10;
+
+    transition: 0.8s;
 }
 
 label svg.sun {
     right: 68px;
 }
-label svg.moon path {
+label svg.sun path {
     stroke: var(--yellow1);
 }
 #darkmode_toggle:checked + label svg.sun path{
@@ -127,6 +129,14 @@ label svg.moon path {
     position: fixed;
 }
 
+button:hover{
+    border: 2px solid var(--background_c);
+    transition: 0.8s;
+}
+button:active{
+    background-color: var(--blue3);
+}
+
 .home_button{
     height: 46px;
     width: 100px;
@@ -140,15 +150,6 @@ label svg.moon path {
     position: fixed;
 
     transition: 0.8s;
-}
-
-button:hover{
-    border: 2px solid var(--background_c);
-    transition: 0.8s;
-}
-
-button:active{
-    background-color: var(--blue3);
 }
 
 .github_button{
@@ -175,4 +176,28 @@ button:active{
     position: relative;
 
     border: 5px solid var(--border_c);
+}
+
+h2 {
+    color: var(--blue1);
+    /* margin: auto; */
+    display: flex;
+    justify-content: center;
+}
+
+p {
+    color: var(--text_c);
+}
+
+.game_choice {
+    width: 600px;
+    height: 150px;
+    border-radius: 10px;
+
+    top: 100px;
+    position: relative;
+
+    background-color: var(--background_c);
+
+    border: 2px solid var(--border_c);
 }
