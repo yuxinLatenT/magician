@@ -1,10 +1,10 @@
-const { json } = require('body-parser');
-const express = require('express');
+const { json, text } = require('body-parser');
+const express = require('express'); // 引入express套件
 const app = express();
 const PORT = 3000;
 
-const mysql = require('mysql2');
-
+const setting = require("./setting.json");
+const mysql = require("mysql2");
 
 app.get('/', (req, res) => {
     res.send('Hello, world!');
@@ -14,13 +14,12 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-
-
+// MySQL
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'f12h_Po00@L',
-    database: 'magician_book' //put in json
+    password: setting.mysql_password, //put in json
+    database: 'magician_book' 
 });
 
 db.connect(err => {
