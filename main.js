@@ -6,11 +6,13 @@ function github_btn_onclick(element){
     window.location = "https://github.com/yuxinLatenT/magician";
 }
 
-// function mem_card_onclick(element){
-//     window.location.href = "memory_card.html";
-//     alert("hi");
+function mem_card_onclick(element){
+    window.location.href = "memory_card.html";
+}
 
-// }
+function type_text_onclick(element){
+    window.location.href = "type_text.html";
+}
 
 // 黑暗模式設定
 const darkmode_toggle = document.getElementById("darkmode_toggle");
