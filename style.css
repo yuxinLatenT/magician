@@ -19,7 +19,7 @@
 
 body {
     background-color: var(--background_c);
-    height: 500px;
+    height: 100vh;
     transition: 1s;
 }
 
@@ -129,8 +129,6 @@ label svg.moon path {
     position: fixed;
 }
 
-
-
 .home_button{
     height: 46px;
     width: 100px;
@@ -175,16 +173,7 @@ label svg.moon path {
     background-color: var(--blue3);
 }
 
-.simple_word_card {
-    width: 240px;
-    height: 300px;
-    border-radius: 30px;
 
-    top: 100px;
-    position: relative;
-
-    border: 5px solid var(--border_c);
-}
 
 
 
@@ -223,4 +212,59 @@ p {
     background-color: var(--yellow1);
     transition: cubic-bezier(0.895, 0.03, 0.685, 0.22);
     transition: 0.5s;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+  }
+
+.game_play_area {
+    height: 600px;
+    width: 900px;
+    top: 55px;
+    left: 10px;
+
+    border: 5px solid var(--blue1);
+
+    display: flex;
+    padding: 10px;
+    position: relative;
+
+    flex-wrap: wrap; /* 允許自動換行 */
+    justify-content: flex-start; /* 卡片從左到右排列 */
+
+}
+
+.card {
+    background-color: #F9BF45;
+
+    border: 2px solid var(--yellow1);
+    width: 126px;
+    height: 176px;
+    margin: 10px;
+
+    position: relative;
+    display: flex;
+}
+
+.countdown_and_score_area {
+    background-color: aquamarine;
+    height: 300px;
+    width: 300px;
+    top: 55px;
+    right: 10px;
+    z-index: 100;
+
+    border: 5px solid var(--border_c);
+
+    display: flex;
+    padding: 10px;
+    position: relative;
+
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
 }
