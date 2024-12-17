@@ -8,6 +8,8 @@
     --text_c: #1C1C1C;
     --background_c: #FCFAF2;
     --border_c: #1C1C1C;
+    --vis0: hidden;
+    --vis1: visible;
 }
 
 /* 黑暗模式顏色設定 */
@@ -15,6 +17,12 @@
     --text_c: #FCFAF2;
     --background_c: #1C1C1C;
     --border_c: #FCFAF2;
+}
+
+/* 翻翻樂遊戲開始*/ 
+.mem_game_start {
+    --vis0: visible;
+    --vis1: hidden;
 }
 
 body {
@@ -241,6 +249,10 @@ html, body {
 
 }
 
+.introduction {
+    visibility: var(--vis1);
+}
+
 .card {
     background-color: #F9BF45;
 
@@ -251,6 +263,14 @@ html, body {
 
     position: relative;
     display: flex;
+
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   
+    font-size: 50px;
+    align-items: center;
+    justify-content: center;
+
+    visibility: var(--vis0);
 }
 
 .countdown_and_score_area {
@@ -273,11 +293,31 @@ html, body {
 .countdown_area {
     background-color: var(--blue1);
     width: 274px;
-    height: 180px;
+    height: 160px;
 
     margin: 10px;
+    padding: 10px;
     border-radius: 20px;
 }
+
+.counter {
+    background-color: var(--yellow1);
+    width: 234px;
+    height: 110px;
+
+    margin: 10px;
+}
+
+.reminder {
+    background-color: var(--yellow1);
+    width: 234px;
+    height: 20px;
+
+    margin: 10px;
+
+    border-radius: 10px;
+}
+
 
 .score_area {
     width: 274px;

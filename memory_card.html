@@ -24,33 +24,63 @@
             </label>
         </div>
 
-        <span class="game_play_area">
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-            <span class="card"></span>
-
-        </span>
-
-        <span class="countdown_and_score_area">
+        <div class="container">
             
-        </span>
+            <div class="game_play_area">
+                <div class="introduction" id="intro">
+                    <h2>遊戲介紹</h2>
+                    <p>
+                        畫面中會有18張卡片，分別有9組[平假名、羅馬拼音]的字卡可以配對<br/>
+                        當9組全部配對完成會再出現下一大組的18張卡片
+                    </p>
+                    <input type="text">
+                    <button class="mem_start" id="mem_start_btn" onclick="mem_start_btn_onclick(this)">start</button>
+
+                </div>
+
+                
+                <span class="card", id="c1"></span>
+                <span class="card", id="c2"></span>
+                <span class="card", id="c3"></span>
+                <span class="card", id="c4"></span>
+                <span class="card", id="c5"></span>
+                <span class="card", id="c6"></span>
+    
+                <span class="card", id="c7"></span>
+                <span class="card", id="c8"></span>
+                <span class="card", id="c9"></span>
+                <span class="card", id="c10"></span>
+                <span class="card", id="c11"></span>
+                <span class="card", id="c12"></span>
+    
+                <span class="card", id="c13"></span>
+                <span class="card", id="c14"></span>
+                <span class="card", id="c15"></span>
+                <span class="card", id="c16"></span>
+                <span class="card", id="c17"></span>
+                <span class="card", id="c18"></span>
+            </div>
+    
+            <div class="countdown_and_score_area">
+                <div class="countdown_area">
+                    <div class="counter">
+
+                    </div>
+                    <div class="reminder">
+
+                    </div>
+                </div>
+                <div class="score_area">
+                    
+                </div>
+                <div class="tv_area">
+                    
+                </div>
+
+            </div>
+        </div>
+
+        
 
         <script src="main.js"></script>
         <script src="functions.js"></script>
