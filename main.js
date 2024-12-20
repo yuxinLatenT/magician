@@ -23,6 +23,8 @@ mem_start.addEventListener("click", function(){
     let introduction = document.getElementById("intro");
     introduction.remove();
 
+    // 玩家名字、現在時間等資料丟到sql
+
     document.body.classList.add("mem_game_start");
 });
 
@@ -37,3 +39,20 @@ darkmode_toggle.addEventListener("change", function(){
         document.body.classList.remove("dark_mode");
     }
 });
+
+// 計時器
+const cd_min = 0.2;
+let cd_time = cd_min * 60;
+let stop_cd = 0;
+const counter = document.getElementById("counter");
+
+let interval = setInterval(update_counter, 1000);
+
+function update_counter(){
+    counter.innerHTML = cd_time;
+    
+    if(cd_time==0){
+        clearInterval(interval); //停止計時
+    }
+    cd_time -= 1;
+}

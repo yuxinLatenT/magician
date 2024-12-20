@@ -10,6 +10,7 @@
     --border_c: #1C1C1C;
     --vis0: hidden;
     --vis1: visible;
+    font-family: "Noto Sans CJK TC", "Microsoft JhengHei", PingFang, STHeiti, sans-serif, serif;
 }
 
 /* 黑暗模式顏色設定 */
@@ -23,6 +24,11 @@
 .mem_game_start {
     --vis0: visible;
     --vis1: hidden;
+}
+
+/*翻翻樂遊戲結束*/
+.mem_game_end {
+    --vis0: hidden;
 }
 
 body {
@@ -212,7 +218,8 @@ p {
 }
 
 .mem_card_game_btn:hover,
-.type_text_game_btn:hover {
+.type_text_game_btn:hover,
+.mem_start:hover {
     background-color: var(--yellow1);
     transition: cubic-bezier(0.895, 0.03, 0.685, 0.22);
     transition: 0.5s;
@@ -250,8 +257,43 @@ html, body {
 }
 
 .introduction {
+    /* background-color: aquamarine; */
     visibility: var(--vis1);
+    
+    width: 600px;
+    left: 130px;
+    position: relative;
+    padding: 10px;
+    margin: 10px;
+
 }
+
+.input_name {
+    background-color: var(--background_c);
+    width: 320px;
+    height: 40px;
+
+    margin: 10px;
+    position: relative;
+    
+    left: 45px;
+
+    border: 2px solid var(--border_c);
+}
+
+.mem_start {
+    background-color: var(--blue1);
+    width: 160px;
+    height: 46px;
+
+    margin: 10px;
+    position: relative;
+
+    left: 25px;
+
+    border: 2px solid var(--border_c);
+}
+
 
 .card {
     background-color: #F9BF45;
@@ -298,25 +340,21 @@ html, body {
     margin: 10px;
     padding: 10px;
     border-radius: 20px;
+
+    align-content: center;
 }
 
-.counter {
-    background-color: var(--yellow1);
+#counter {
+    font-size: 60px;
+    
     width: 234px;
-    height: 110px;
-
+    height: 120px;
+    align-items: center;
+    display: flex;
     margin: 10px;
 }
 
-.reminder {
-    background-color: var(--yellow1);
-    width: 234px;
-    height: 20px;
 
-    margin: 10px;
-
-    border-radius: 10px;
-}
 
 
 .score_area {
