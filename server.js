@@ -1,10 +1,13 @@
 const { json, text } = require('body-parser');
-const express = require('express'); // 引入express套件
+const express = require("express"); // 引入express套件
+const cors = require("cors"); //引入cor套件
 const app = express();
 const PORT = 3000;
 
 const setting = require("./setting.json");
 const mysql = require("mysql2");
+
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('Hello, world!');
@@ -18,10 +21,11 @@ app.listen(PORT, () => {
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: setting.mysql_password, //put in json
+    password: setting.mysql_password, //put it in setting.json
     database: 'magician_book' 
 });
 
+// 連線到MySQL
 db.connect(err => {
     if (err) {
         console.error('Error connecting to MySQL:', err);
@@ -30,7 +34,8 @@ db.connect(err => {
     console.log('Connected to MySQL');
 });
 
-app.get('/users', (req, res) => {
+// GET API
+app.get('/words', (req, res) => {
     db.query('SELECT * FROM `words`;', (err, results) => {
         if (err) {
             res.status(500).send(err);
@@ -39,3 +44,17 @@ app.get('/users', (req, res) => {
         res.json(results);
     });
 });
+
+// POST API
+app.use(express.json());
+
+app.post('/mem_player_record', (req, res) => {
+    const {name, score} = req.body; //要把body換其他的嗎
+    db.query("INSERT INTO mem_player_record (name, score) VALUES (?, ?)", [name, score], (err, result) => {
+        if(err){
+            res.status(500).send(err);
+            return;
+        }
+        res.send('User added successfully');
+    })
+})
