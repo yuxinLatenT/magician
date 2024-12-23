@@ -69,17 +69,26 @@ function card_onclick(element){
 
     if(click_on_card_n == 2){
         check_ans();
-        click_on_card_n = 0;
+        click_on_card_n = 0;    
     }
+    console.log(score);
 }
 
 // 檢查答案
+let score = 0;
+let correct = 1;
 function check_ans(){
-    // if correct
-    //   hide_card()
+    // console.log(correct);
 
-    // else
-    //   element.style.border = "border: 2px solid var(--yellow1)";
+    if(correct == 1){
+        hide_card();
+        score += 1;
+        correct = 0;
+    }
+    else{
+        back_card();
+        correct = 1;
+    }
 }
 
 // 配對成功，把卡變不見
@@ -91,14 +100,19 @@ function hide_card(){
     y.style.visibility = "hidden";
 }
 
-function delete_card_buffer(){
-
+function back_card(){
+    const x = document.getElementById(card_box[0][0]);
+    const y = document.getElementById(card_box[1][0]);
+    x.style.border = "border: 2px solid var(--yellow1)";
+    x.style.color = "var(--yellow1)";
+    y.style.border = "border: 2px solid var(--yellow1)";
+    y.style.color = "var(--yellow1)";
 }
-
 
 // 遊戲是否開始以及行動
 const mem_start = document.getElementById("mem_start_btn");
 let input_player_name = document.getElementById("input_player_name");
+let player_name = input_player_name.value;
 
 mem_start.addEventListener("click", function(){
     let introduction = document.getElementById("intro");
@@ -107,7 +121,7 @@ mem_start.addEventListener("click", function(){
     // 玩家名字等資料丟到sql
     
     // console.log(input_player_name.value);
-    save_game_result(input_player_name.value, 87); //玩家名字存到mysql
+    // save_game_result(input_player_name.value, 87); //玩家名字存到mysql
     interval = setInterval(update_counter, 1000);
 
     document.body.classList.add("mem_game_start");

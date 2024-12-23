@@ -322,6 +322,7 @@ html, body {
     color: var(--yellow1); /*防bug -> 晚點改掉 js也要改*/
 
     visibility: var(--vis1);
+    transition: 0.2s;
 }
 
 .card:hover {
