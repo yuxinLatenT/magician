@@ -54,13 +54,46 @@ c17.innerText = "c17";
 const c18 = document.getElementById("c18");
 c18.innerText = "c18";
 
+// 翻卡牌
 let click_on_card_n = 0;
-c1.addEventListener("click", function(){
+
+const card_box = [[ , ], [ , ]]; // 卡片id 內容id
+function card_onclick(element){
+    card_box[click_on_card_n][0] = element.id;
+    card_box[click_on_card_n][1] = element.innerHTML;
+
+    element.style.border = "4px solid var(--border_c)";
+    element.style.color = "var(--text_c)";
+
     click_on_card_n += 1;
-});
-c2.addEventListener("click", function(){
-    click_on_card_n += 1;
-});
+
+    if(click_on_card_n == 2){
+        check_ans();
+        click_on_card_n = 0;
+    }
+}
+
+// 檢查答案
+function check_ans(){
+    // if correct
+    //   hide_card()
+
+    // else
+    //   element.style.border = "border: 2px solid var(--yellow1)";
+}
+
+// 配對成功，把卡變不見
+function hide_card(){
+    const x = document.getElementById(card_box[0][0]);
+    const y = document.getElementById(card_box[1][0]);
+    // 不能用remove位置會跑掉，改成invisible
+    x.style.visibility = "hidden";
+    y.style.visibility = "hidden";
+}
+
+function delete_card_buffer(){
+
+}
 
 
 // 遊戲是否開始以及行動
@@ -73,7 +106,7 @@ mem_start.addEventListener("click", function(){
 
     // 玩家名字等資料丟到sql
     
-    console.log(input_player_name.value); //玩家名字
+    // console.log(input_player_name.value);
     save_game_result(input_player_name.value, 87); //玩家名字存到mysql
     interval = setInterval(update_counter, 1000);
 
@@ -93,7 +126,7 @@ darkmode_toggle.addEventListener("change", function(){
 });
 
 // 計時器
-const cd_min = 0.1;
+const cd_min = 0.2;
 let cd_time = cd_min * 60;
 let interval;
 const counter = document.getElementById("counter");
@@ -138,12 +171,12 @@ again_btn.addEventListener("click", function(){
 
 
 // 取得字卡資料
-async function fetchCards() {
-    const response = await fetch('http://localhost:3000/words');
-    const words = await response.json();
-    // 根據資料生成 HTML 卡片
-}
-fetchCards();
+// async function fetchCards() {
+//     const response = await fetch('http://localhost:3000/words');
+//     const words = await response.json();
+//     // 根據資料生成 HTML 卡片
+// }
+// fetchCards();
 
 // 存遊玩結果
 async function save_game_result(player_name, player_score) {
