@@ -322,11 +322,16 @@ html, body {
     color: var(--yellow1); /*防bug -> 晚點改掉 js也要改*/
 
     visibility: var(--vis1);
-    transition: 0.2s;
+    transition: 0.1s;
 }
 
 .card:hover {
     border: 2px solid var(--border_c);
+}
+
+.card.click {
+    border: 4px solid var(--border_c);
+    color: var(--text_c);
 }
 
 .countdown_and_score_area {

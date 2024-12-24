@@ -16,6 +16,7 @@ function type_text_onclick(element){
 
 document.body.classList.remove("mem_game_start");
 document.body.classList.remove("mem_game_end");
+document.body.classList.remove("card_click");
 
 const c1 = document.getElementById("c1");
 c1.innerText = "c1";
@@ -54,22 +55,53 @@ c17.innerText = "c17";
 const c18 = document.getElementById("c18");
 c18.innerText = "c18";
 
+// 卡片出現場次的順序
+let questions_of_rounds = [];
+for(let i=0; i<45; i++){ // 出45題
+    let n = Math.floor(Math.random() * 46) + 1; //產生1~46的整數
+    if(questions_of_rounds.includes(n)){
+        i -= 1;
+    }
+    else{
+        questions_of_rounds.push(n);
+    }
+}
+console.log(questions_of_rounds);
+
+let round = 0;
+
+// 出該場次的題目
+let q_in_this_round = [];
+for(let i=9*round; i<9*(round+1); i++){
+    q_in_this_round.push(questions_of_rounds[i]);
+    q_in_this_round.push(questions_of_rounds[i]);
+}
+console.log(q_in_this_round);
+
+
+
+
+
+
+
+
+
+
 // 翻卡牌
 let click_on_card_n = 0;
 
 const card_box = [[ , ], [ , ]]; // 卡片id 內容id
 function card_onclick(element){
     card_box[click_on_card_n][0] = element.id;
-    card_box[click_on_card_n][1] = element.innerHTML;
+    card_box[click_on_card_n][1] = element.innerText;
 
-    element.style.border = "4px solid var(--border_c)";
-    element.style.color = "var(--text_c)";
-
+    element.classList.add("click");
+    
     click_on_card_n += 1;
 
     if(click_on_card_n == 2){
-        check_ans();
-        click_on_card_n = 0;    
+        //check_ans(); 會造成css來不及改
+        setTimeout(check_ans, 400); 
     }
     console.log(score);
 }
@@ -78,7 +110,7 @@ function card_onclick(element){
 let score = 0;
 let correct = 1;
 function check_ans(){
-    // console.log(correct);
+    console.log("check_ans()");
 
     if(correct == 1){
         hide_card();
@@ -89,10 +121,13 @@ function check_ans(){
         back_card();
         correct = 1;
     }
+
+    click_on_card_n = 0;
 }
 
 // 配對成功，把卡變不見
 function hide_card(){
+    console.log("hide_card()");
     const x = document.getElementById(card_box[0][0]);
     const y = document.getElementById(card_box[1][0]);
     // 不能用remove位置會跑掉，改成invisible
@@ -100,19 +135,19 @@ function hide_card(){
     y.style.visibility = "hidden";
 }
 
+// 配對錯了，蓋回去
 function back_card(){
+    console.log("back_card()");
     const x = document.getElementById(card_box[0][0]);
     const y = document.getElementById(card_box[1][0]);
-    x.style.border = "border: 2px solid var(--yellow1)";
-    x.style.color = "var(--yellow1)";
-    y.style.border = "border: 2px solid var(--yellow1)";
-    y.style.color = "var(--yellow1)";
+    x.classList.remove("click");
+    y.classList.remove("click");
 }
 
 // 遊戲是否開始以及行動
 const mem_start = document.getElementById("mem_start_btn");
 let input_player_name = document.getElementById("input_player_name");
-let player_name = input_player_name.value;
+// let player_name = input_player_name.value;
 
 mem_start.addEventListener("click", function(){
     let introduction = document.getElementById("intro");
@@ -121,7 +156,7 @@ mem_start.addEventListener("click", function(){
     // 玩家名字等資料丟到sql
     
     // console.log(input_player_name.value);
-    // save_game_result(input_player_name.value, 87); //玩家名字存到mysql
+    save_game_result(input_player_name.value, 0); //玩家名字存到mysql
     interval = setInterval(update_counter, 1000);
 
     document.body.classList.add("mem_game_start");
@@ -140,7 +175,7 @@ darkmode_toggle.addEventListener("change", function(){
 });
 
 // 計時器
-const cd_min = 0.2;
+const cd_min = 2;
 let cd_time = cd_min * 60;
 let interval;
 const counter = document.getElementById("counter");
