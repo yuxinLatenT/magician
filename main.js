@@ -19,73 +19,88 @@ document.body.classList.remove("mem_game_end");
 document.body.classList.remove("card_click");
 
 const c1 = document.getElementById("c1");
-c1.innerText = "c1";
 const c2 = document.getElementById("c2");
-c2.innerText = "c2";
 const c3 = document.getElementById("c3");
-c3.innerText = "c3";
 const c4 = document.getElementById("c4");
-c4.innerText = "c4";
 const c5 = document.getElementById("c5");
-c5.innerText = "c5";
 const c6 = document.getElementById("c6");
-c6.innerText = "c6";
 const c7 = document.getElementById("c7");
-c7.innerText = "c7";
 const c8 = document.getElementById("c8");
-c8.innerText = "c8";
 const c9 = document.getElementById("c9");
-c9.innerText = "c9";
 const c10 = document.getElementById("c10");
-c10.innerText = "c10";
 const c11 = document.getElementById("c11");
-c11.innerText = "c11";
 const c12 = document.getElementById("c12");
-c12.innerText = "c12";
 const c13 = document.getElementById("c13");
-c13.innerText = "c13";
 const c14 = document.getElementById("c14");
-c14.innerText = "c14";
 const c15 = document.getElementById("c15");
-c15.innerText = "c15";
 const c16 = document.getElementById("c16");
-c16.innerText = "c16";
 const c17 = document.getElementById("c17");
-c17.innerText = "c17";
 const c18 = document.getElementById("c18");
-c18.innerText = "c18";
 
 // 卡片出現場次的順序
 let questions_of_rounds = [];
-for(let i=0; i<45; i++){ // 出45題
-    let n = Math.floor(Math.random() * 46) + 1; //產生1~46的整數
-    if(questions_of_rounds.includes(n)){
-        i -= 1;
+
+function set_q_of_rounds(){
+    for(let i=0; i<45; i++){ // 出45題
+        let n = Math.floor(Math.random() * 46) + 1; //產生1~46的整數
+        if(questions_of_rounds.includes(n)){
+            i -= 1;
+        }
+        else{
+            questions_of_rounds.push(n);
+        }
     }
-    else{
-        questions_of_rounds.push(n);
-    }
+    console.log(questions_of_rounds);
 }
-console.log(questions_of_rounds);
+set_q_of_rounds(); //move
+
 
 let round = 0;
 
 // 出該場次的題目
 let q_in_this_round = [];
-for(let i=9*round; i<9*(round+1); i++){
-    q_in_this_round.push(questions_of_rounds[i]);
-    q_in_this_round.push(questions_of_rounds[i]);
+let questions = [0,0,0,0,0,0,
+                 0,0,0,0,0,0,
+                 0,0,0,0,0,0]
+
+function set_questions(){
+    for(let i=9*round; i<9*(round+1); i++){
+        q_in_this_round.push(questions_of_rounds[i]);
+        q_in_this_round.push(questions_of_rounds[i]);
+    }
+    console.log(q_in_this_round);
+    
+    for(let i=0; i<18; i++){
+        let index = Math.floor(Math.random() * 18);
+        if(questions[index] == 0){
+            questions[index] = q_in_this_round[i];
+        }
+        else{
+            i -= 1;
+        }
+    }
+    console.log(questions);
+
+    c1.innerText = questions[0];
+    c2.innerText = questions[1];
+    c3.innerText = questions[2];
+    c4.innerText = questions[3];
+    c5.innerText = questions[4];
+    c6.innerText = questions[5];
+    c7.innerText = questions[6];
+    c8.innerText = questions[7];
+    c9.innerText = questions[8];
+    c10.innerText = questions[9];
+    c11.innerText = questions[10];
+    c12.innerText =questions[11];
+    c13.innerText = questions[12];
+    c14.innerText = questions[13];
+    c15.innerText = questions[14];
+    c16.innerText = questions[15];
+    c17.innerText = questions[16];
+    c18.innerText = questions[17];
 }
-console.log(q_in_this_round);
-
-
-
-
-
-
-
-
-
+set_questions(); //move
 
 // 翻卡牌
 let click_on_card_n = 0;
