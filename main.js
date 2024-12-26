@@ -57,7 +57,7 @@ set_q_of_rounds(); //move
 
 let round = 0;
 
-// 出該場次的題目
+// 出該場次的題目和設定答案
 let q_in_this_round = [];
 let questions = [0,0,0,0,0,0,
                  0,0,0,0,0,0,
@@ -69,6 +69,7 @@ let answers = [0,0,0,0,0,0,
 
 
 function set_questions(){
+    q_in_this_round = [];
     for(let i=9*round; i<9*(round+1); i++){
         q_in_this_round.push(questions_of_rounds[i]);
         q_in_this_round.push(questions_of_rounds[i]);
@@ -92,6 +93,7 @@ function set_questions(){
             if(questions[j] == target){
                 answers[i] = j;
                 answers[j] = i;
+                break;
             }
         }
     }
@@ -121,17 +123,19 @@ set_questions(); //move
 // 翻卡牌
 let click_on_card_n = 0;
 
-const card_box = [[ , ], [ , ]]; // 卡片id 內容id
+let card_box = [[ , ], [ , ]]; // 卡片id 內容id
 function card_onclick(element){
     card_box[click_on_card_n][0] = element.id;
     card_box[click_on_card_n][1] = element.innerText;
-
+    console.log(card_box[click_on_card_n]);
+    
     element.classList.add("click");
     
     click_on_card_n += 1;
-
+    
     if(click_on_card_n == 2){
         //check_ans(); 會造成css來不及改
+        console.log(card_box);
         setTimeout(check_ans, 400); 
     }
     // if(score%9 == 0 && score != 0){ // 這輪的牌翻完了
@@ -148,18 +152,31 @@ let score = 0;
 let correct = 1;
 function check_ans(){
     console.log("check_ans()");
-
-
+    
+    let position_1_str = card_box[0][0]; // cxx
+    let position_2_str = card_box[1][0]; // cyy
+    // 只取id的數字部分
+    let position_1 = position_1_str.slice(1); // xx
+    let position_2 = position_2_str.slice(1); // yy
+    // console.log(position_1, position_2);
+    // console.log(answers[position_1-1], position_2-1);
+    
+    if(answers[position_1-1] == position_2-1){
+        correct = 1;
+    }
+    else{
+        correct = 0;
+    }
 
 
     if(correct == 1){
         hide_card();
         score += 1;
-        correct = 0;
+        // correct = 0;
     }
     else{
         back_card();
-        correct = 1;
+        // correct = 1;
     }
 
     click_on_card_n = 0;
