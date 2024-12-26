@@ -59,17 +59,21 @@ let round = 0;
 
 // 出該場次的題目和設定答案
 let q_in_this_round = [];
-let questions = [0,0,0,0,0,0,
-                 0,0,0,0,0,0,
-                 0,0,0,0,0,0]
-
-let answers = [0,0,0,0,0,0,
-               0,0,0,0,0,0,
-               0,0,0,0,0,0]
+let questions = [];
+let answers = [];
 
 
 function set_questions(){
+    console.log("set_questions()");
     q_in_this_round = [];
+    questions = [0,0,0,0,0,0,
+                 0,0,0,0,0,0,
+                 0,0,0,0,0,0];
+
+    answers = [0,0,0,0,0,0,
+               0,0,0,0,0,0,
+               0,0,0,0,0,0];
+
     for(let i=9*round; i<9*(round+1); i++){
         q_in_this_round.push(questions_of_rounds[i]);
         q_in_this_round.push(questions_of_rounds[i]);
@@ -110,13 +114,52 @@ function set_questions(){
     c9.innerText = questions[8];
     c10.innerText = questions[9];
     c11.innerText = questions[10];
-    c12.innerText =questions[11];
+    c12.innerText = questions[11];
     c13.innerText = questions[12];
     c14.innerText = questions[13];
     c15.innerText = questions[14];
     c16.innerText = questions[15];
     c17.innerText = questions[16];
     c18.innerText = questions[17];
+    
+    if(round){
+        // c1.style.visibility = "visible";
+        // c2.style.visibility = "visible";
+        // c3.style.visibility = "visible";
+        // c4.style.visibility = "visible";
+        // c5.style.visibility = "visible";
+        // c6.style.visibility = "visible";
+        // c7.style.visibility = "visible";
+        // c8.style.visibility = "visible";
+        // c9.style.visibility = "visible";
+        // c10.style.visibility = "visible";
+        // c11.style.visibility = "visible";
+        // c12.style.visibility = "visible";
+        // c13.style.visibility = "visible";
+        // c14.style.visibility = "visible";
+        // c15.style.visibility = "visible";
+        // c16.style.visibility = "visible";
+        // c17.style.visibility = "visible";
+        // c18.style.visibility = "visible";
+        c1.classList.remove("hidee");
+        c2.classList.remove("hidee");
+        c3.classList.remove("hidee");
+        c4.classList.remove("hidee");
+        c5.classList.remove("hidee");
+        c6.classList.remove("hidee");
+        c7.classList.remove("hidee");
+        c8.classList.remove("hidee");
+        c9.classList.remove("hidee");
+        c10.classList.remove("hidee");
+        c11.classList.remove("hidee");
+        c12.classList.remove("hidee");
+        c13.classList.remove("hidee");
+        c14.classList.remove("hidee");
+        c15.classList.remove("hidee");
+        c16.classList.remove("hidee");
+        c17.classList.remove("hidee");
+        c18.classList.remove("hidee");
+    }
 }
 set_questions(); //move
 
@@ -138,14 +181,7 @@ function card_onclick(element){
         console.log(card_box);
         setTimeout(check_ans, 400); 
     }
-    // if(score%9 == 0 && score != 0){ // 這輪的牌翻完了
-    //     round += 1;
-    //     set_questions();
-    // }
-    console.log(score);
 }
-
-
 
 // 檢查答案
 let score = 0;
@@ -170,19 +206,16 @@ function check_ans(){
 
 
     if(correct == 1){
-        hide_card();
         score += 1;
-        // correct = 0;
+        hide_card();
     }
     else{
         back_card();
-        // correct = 1;
     }
-
+    console.log(score);
     click_on_card_n = 0;
+    
 }
-
-
 
 // 配對成功，把卡變不見
 function hide_card(){
@@ -190,8 +223,21 @@ function hide_card(){
     const x = document.getElementById(card_box[0][0]);
     const y = document.getElementById(card_box[1][0]);
     // 不能用remove位置會跑掉，改成invisible
-    x.style.visibility = "hidden";
-    y.style.visibility = "hidden";
+    x.classList.remove("click");
+    y.classList.remove("click");
+    x.classList.add("hidee");
+    y.classList.add("hidee");
+    // x.style.visibility = "hidden";
+    // y.style.visibility = "hidden";
+    console.log("correct and score = ", score);
+    if(score%9 == 0 && score != 0){ // 這輪的牌翻完了
+        console.log("next");
+        round += 1;
+        setTimeout(() => {
+            set_questions();
+        }, 500);
+        
+    }
 }
 
 // 配對錯了，蓋回去

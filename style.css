@@ -319,7 +319,7 @@ html, body {
     align-items: center;
     justify-content: center;
 
-    color: var(--yellow1); /*防bug -> 晚點改掉 js也要改*/
+    color: var(--blue1); /*防bug -> 晚點改掉 js也要改*/
 
     visibility: var(--vis1);
     transition: 0.1s;
@@ -332,6 +332,10 @@ html, body {
 .card.click {
     border: 4px solid var(--border_c);
     color: var(--text_c);
+}
+
+.card.hidee {
+    visibility: hidden;
 }
 
 .countdown_and_score_area {
