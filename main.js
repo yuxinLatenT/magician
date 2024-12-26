@@ -63,6 +63,11 @@ let questions = [0,0,0,0,0,0,
                  0,0,0,0,0,0,
                  0,0,0,0,0,0]
 
+let answers = [0,0,0,0,0,0,
+               0,0,0,0,0,0,
+               0,0,0,0,0,0]
+
+
 function set_questions(){
     for(let i=9*round; i<9*(round+1); i++){
         q_in_this_round.push(questions_of_rounds[i]);
@@ -80,6 +85,17 @@ function set_questions(){
         }
     }
     console.log(questions);
+
+    for(let i=0; i<18-1; i++){
+        let target = questions[i];
+        for(let j=i+1; j<18; j++){
+            if(questions[j] == target){
+                answers[i] = j;
+                answers[j] = i;
+            }
+        }
+    }
+    console.log(answers);
 
     c1.innerText = questions[0];
     c2.innerText = questions[1];
@@ -118,14 +134,23 @@ function card_onclick(element){
         //check_ans(); 會造成css來不及改
         setTimeout(check_ans, 400); 
     }
+    // if(score%9 == 0 && score != 0){ // 這輪的牌翻完了
+    //     round += 1;
+    //     set_questions();
+    // }
     console.log(score);
 }
+
+
 
 // 檢查答案
 let score = 0;
 let correct = 1;
 function check_ans(){
     console.log("check_ans()");
+
+
+
 
     if(correct == 1){
         hide_card();
@@ -139,6 +164,8 @@ function check_ans(){
 
     click_on_card_n = 0;
 }
+
+
 
 // 配對成功，把卡變不見
 function hide_card(){
