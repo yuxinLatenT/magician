@@ -6,6 +6,10 @@ function github_btn_onclick(element){
     window.location = "https://github.com/yuxinLatenT/magician";
 }
 
+function ranking_btn_onclick(element){
+    window.location = "ranking.html";
+}
+
 function mem_card_onclick(element){
     window.location.href = "memory_card.html";
 }

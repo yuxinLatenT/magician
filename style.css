@@ -191,6 +191,28 @@ label svg.moon path {
     background-color: var(--blue3);
 }
 
+.ranking_button{
+    height: 46px;
+    width: 100px;
+    left: 215px;
+    top: 7px;
+    
+    background-color: var(--blue1);
+    border: 2px solid var(--blue1);
+
+    margin: 0;
+    position: fixed;
+
+    transition: 0.8s;
+}
+.ranking_button:hover{
+    border: 2px solid var(--background_c);
+    transition: 0.8s;
+}
+.ranking_button:active{
+    background-color: var(--blue3);
+}
+
 h2 {
     color: var(--blue1);
     display: flex;
@@ -432,5 +454,24 @@ html, body {
 .again_buttun:hover {
     background-color: var(--yellow1);
     transition: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+    transition: 0.5s;
+}
+
+.rank_player {
+    background-color: var(--blue1);
+    width: 400px;
+    height: 25px;
+
+    padding: 10px;
+    margin: 5px;
+
+    border: 2px solid var(--border_c);
+    justify-self: center;
+    justify-content: center;
+
+    display: grid;
+}
+.rank_player:hover {
+    background-color: var(--yellow1);
     transition: 0.5s;
 }
