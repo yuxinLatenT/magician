@@ -195,7 +195,9 @@ function hide_card(){
         round += 1;
         setTimeout(() => {
             set_questions();
+            fetch_cards();
         }, 500);
+        
     }
 }
 
@@ -210,14 +212,12 @@ function back_card(){
 
 // 遊戲是否開始以及行動
 const mem_start = document.getElementById("mem_start_btn");
-let input_player_name = document.getElementById("input_player_name");
+
 
 mem_start.addEventListener("click", function(){
     let introduction = document.getElementById("intro");
     introduction.remove();
 
-    // 玩家名字等資料丟到sql
-    // save_game_result(input_player_name.value, 0); // 玩家名字存到mysql
     interval = setInterval(update_counter, 1000);
 
     document.body.classList.add("mem_game_start");
@@ -250,6 +250,8 @@ function update_counter(){
     }
     cd_time -= 1;
 }
+
+const input_player_name = document.getElementById("input_player_name");
 
 function game_end() {
     save_game_result(input_player_name.value, score);
