@@ -58,7 +58,6 @@ function set_q_of_rounds(){
 }
 set_q_of_rounds();
 
-
 let round = 0;
 
 // 出該場次的題目和設定答案
@@ -66,13 +65,12 @@ let q_in_this_round = [];
 let questions = [];
 let answers = [];
 
-
 function set_questions(){
     console.log("set_questions()");
     q_in_this_round = [];
-    questions = [0,0,0,0,0,0,
-                 0,0,0,0,0,0,
-                 0,0,0,0,0,0];
+    questions = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],
+                 [0,0],[0,0],[0,0],[0,0],[0,0],[0,0],
+                 [0,0],[0,0],[0,0],[0,0],[0,0],[0,0],];
 
     answers = [0,0,0,0,0,0,
                0,0,0,0,0,0,
@@ -85,9 +83,11 @@ function set_questions(){
     console.log(q_in_this_round);
     
     for(let i=0; i<18; i++){
+        // i = 0 2 4 6 放平假名
         let index = Math.floor(Math.random() * 18);
-        if(questions[index] == 0){
-            questions[index] = q_in_this_round[i];
+        if(questions[index][0] == 0){
+            questions[index][0] = q_in_this_round[i];
+            questions[index][1] = i % 2;
         }
         else{
             i -= 1;
@@ -96,9 +96,9 @@ function set_questions(){
     console.log(questions);
 
     for(let i=0; i<18-1; i++){
-        let target = questions[i];
+        let target = questions[i][0];
         for(let j=i+1; j<18; j++){
-            if(questions[j] == target){
+            if(questions[j][0] == target){
                 answers[i] = j;
                 answers[j] = i;
                 break;
@@ -106,26 +106,6 @@ function set_questions(){
         }
     }
     console.log(answers);
-
-    c1.innerText = questions[0];
-    c2.innerText = questions[1];
-    c3.innerText = questions[2];
-    c4.innerText = questions[3];
-    c5.innerText = questions[4];
-    c6.innerText = questions[5];
-    c7.innerText = questions[6];
-    c8.innerText = questions[7];
-    c9.innerText = questions[8];
-    c10.innerText = questions[9];
-    c11.innerText = questions[10];
-    c12.innerText = questions[11];
-    c13.innerText = questions[12];
-    c14.innerText = questions[13];
-    c15.innerText = questions[14];
-    c16.innerText = questions[15];
-    c17.innerText = questions[16];
-    c18.innerText = questions[17];
-    
     
     c1.classList.remove("hidee");
     c2.classList.remove("hidee");
@@ -145,7 +125,6 @@ function set_questions(){
     c16.classList.remove("hidee");
     c17.classList.remove("hidee");
     c18.classList.remove("hidee");
-    
 }
 set_questions(); //move
 
@@ -257,7 +236,7 @@ darkmode_toggle.addEventListener("change", function(){
 });
 
 // 計時器
-const cd_min = 0.2;
+const cd_min = 2;
 let cd_time = cd_min * 60;
 let interval;
 const counter = document.getElementById("counter");
@@ -303,22 +282,64 @@ again_btn.addEventListener("click", function(){
 
 
 // 取得字卡資料
-// async function fetchCards() {
-//     const response = await fetch('http://localhost:3000/words');
-//     const words = await response.json();
-//     // 根據資料生成 HTML 卡片
-// }
-// fetchCards();
+async function fetch_cards() {
+    const response = await fetch('http://localhost:3000/words');
+    const words = await response.json();
 
-// // 存遊玩結果-
-// async function save_game_result(player_name, player_score) {
-//     await fetch('http://localhost:3000/mem_player_record', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ name: player_name, score: player_score })
-//     });
-//     // alert('Game result saved!');
-// }
+    function set_card_text(card_id, card_index){
+        console.log("q is ",questions[card_index]);
+        console.log(words[questions[card_index][0]-1]);
+        console.log(words[questions[card_index][0]-1].Romanization);
+        console.log(words[questions[card_index][0]-1].hiragana);
+        // !!!
+        if(questions[card_index][1] == 0){
+            card_id.innerText = words[questions[card_index][0]-1].hiragana;
+            console.log("use hiragana");
+        }
+        else{
+            card_id.innerText = words[questions[card_index][0]-1].Romanization;
+            console.log("use Romanization");
+        }
+    }
+    set_card_text(c1, 0);
+    set_card_text(c2, 1);
+    set_card_text(c3, 2);
+    set_card_text(c4, 3);
+    set_card_text(c5, 4);
+    set_card_text(c6, 5);
+    set_card_text(c7, 6);
+    set_card_text(c8, 7);
+    set_card_text(c9, 8);
+    set_card_text(c10, 9);
+    set_card_text(c11, 10);
+    set_card_text(c12, 11);
+    set_card_text(c13, 12);
+    set_card_text(c14, 13);
+    set_card_text(c15, 14);
+    set_card_text(c16, 15);
+    set_card_text(c17, 16);
+    set_card_text(c18, 17);
+    // c1.innerText = words[questions[0][0]].hiragana;
+    // c2.innerText = words[questions[1][0]].hiragana;
+    // c3.innerText = words[questions[2][0]].hiragana;
+    // c4.innerText = words[questions[3][0]].hiragana;
+    // c5.innerText = words[questions[4][0]].hiragana;
+    // c6.innerText = words[questions[5][0]].hiragana;
+    // c7.innerText = words[questions[6][0]].hiragana;
+    // c8.innerText = words[questions[7][0]].hiragana;
+    // c9.innerText = words[questions[8][0]].hiragana;
+    // c10.innerText = words[questions[9][0]].hiragana;
+    // c11.innerText = words[questions[10][0]].hiragana;
+    // c12.innerText = words[questions[11][0]].hiragana;
+    // c13.innerText = words[questions[12][0]].hiragana;
+    // c14.innerText = words[questions[13][0]].hiragana;
+    // c15.innerText = words[questions[14][0]].hiragana;
+    // c16.innerText = words[questions[15][0]].hiragana;
+    // c17.innerText = words[questions[16][0]].hiragana;
+    // c18.innerText = words[questions[17][0]].hiragana;
+}
+fetch_cards();
+
 
 // 存遊玩結果-玩家名字、更新分數
 async function save_game_result(player_name, player_score) {
