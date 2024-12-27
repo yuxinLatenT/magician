@@ -10,7 +10,7 @@ const mysql = require("mysql2");
 app.use(cors());
 
 app.get('/', (req, res) => {
-    res.send('Hello, world!');
+    res.send("server");
 });
 
 app.listen(PORT, () => {
@@ -21,7 +21,7 @@ app.listen(PORT, () => {
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: setting.mysql_password, //put it in setting.json
+    password: setting.mysql_password, // 放在setting.json裡面
     database: 'magician_book' 
 });
 
@@ -49,7 +49,7 @@ app.get('/words', (req, res) => {
 app.use(express.json());
 
 app.post('/mem_player_record', (req, res) => {
-    const {name, score} = req.body; //要把body換其他的嗎
+    const {name, score} = req.body;
     db.query("INSERT INTO mem_player_record (name, score) VALUES (?, ?)", [name, score], (err, result) => {
         if(err){
             res.status(500).send(err);

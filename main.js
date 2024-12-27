@@ -56,7 +56,7 @@ function set_q_of_rounds(){
     }
     console.log(questions_of_rounds);
 }
-set_q_of_rounds(); //move
+set_q_of_rounds();
 
 
 let round = 0;
@@ -126,44 +126,26 @@ function set_questions(){
     c17.innerText = questions[16];
     c18.innerText = questions[17];
     
-    if(round){
-        // c1.style.visibility = "visible";
-        // c2.style.visibility = "visible";
-        // c3.style.visibility = "visible";
-        // c4.style.visibility = "visible";
-        // c5.style.visibility = "visible";
-        // c6.style.visibility = "visible";
-        // c7.style.visibility = "visible";
-        // c8.style.visibility = "visible";
-        // c9.style.visibility = "visible";
-        // c10.style.visibility = "visible";
-        // c11.style.visibility = "visible";
-        // c12.style.visibility = "visible";
-        // c13.style.visibility = "visible";
-        // c14.style.visibility = "visible";
-        // c15.style.visibility = "visible";
-        // c16.style.visibility = "visible";
-        // c17.style.visibility = "visible";
-        // c18.style.visibility = "visible";
-        c1.classList.remove("hidee");
-        c2.classList.remove("hidee");
-        c3.classList.remove("hidee");
-        c4.classList.remove("hidee");
-        c5.classList.remove("hidee");
-        c6.classList.remove("hidee");
-        c7.classList.remove("hidee");
-        c8.classList.remove("hidee");
-        c9.classList.remove("hidee");
-        c10.classList.remove("hidee");
-        c11.classList.remove("hidee");
-        c12.classList.remove("hidee");
-        c13.classList.remove("hidee");
-        c14.classList.remove("hidee");
-        c15.classList.remove("hidee");
-        c16.classList.remove("hidee");
-        c17.classList.remove("hidee");
-        c18.classList.remove("hidee");
-    }
+    
+    c1.classList.remove("hidee");
+    c2.classList.remove("hidee");
+    c3.classList.remove("hidee");
+    c4.classList.remove("hidee");
+    c5.classList.remove("hidee");
+    c6.classList.remove("hidee");
+    c7.classList.remove("hidee");
+    c8.classList.remove("hidee");
+    c9.classList.remove("hidee");
+    c10.classList.remove("hidee");
+    c11.classList.remove("hidee");
+    c12.classList.remove("hidee");
+    c13.classList.remove("hidee");
+    c14.classList.remove("hidee");
+    c15.classList.remove("hidee");
+    c16.classList.remove("hidee");
+    c17.classList.remove("hidee");
+    c18.classList.remove("hidee");
+    
 }
 set_questions(); //move
 
@@ -208,7 +190,6 @@ function check_ans(){
         correct = 0;
     }
 
-
     if(correct == 1){
         score += 1;
         hide_card();
@@ -216,9 +197,7 @@ function check_ans(){
     else{
         back_card();
     }
-    console.log(score);
     click_on_card_n = 0;
-    
 }
 
 // 配對成功，把卡變不見
@@ -226,13 +205,11 @@ function hide_card(){
     console.log("hide_card()");
     const x = document.getElementById(card_box[0][0]);
     const y = document.getElementById(card_box[1][0]);
-    // 不能用remove位置會跑掉，改成invisible
     x.classList.remove("click");
     y.classList.remove("click");
+    // 不能用remove位置會跑掉，改成hidden
     x.classList.add("hidee");
     y.classList.add("hidee");
-    // x.style.visibility = "hidden";
-    // y.style.visibility = "hidden";
     console.log("correct and score = ", score);
     if(score%9 == 0 && score != 0){ // 這輪的牌翻完了
         console.log("next");
@@ -240,7 +217,6 @@ function hide_card(){
         setTimeout(() => {
             set_questions();
         }, 500);
-        
     }
 }
 
@@ -256,16 +232,13 @@ function back_card(){
 // 遊戲是否開始以及行動
 const mem_start = document.getElementById("mem_start_btn");
 let input_player_name = document.getElementById("input_player_name");
-// let player_name = input_player_name.value;
 
 mem_start.addEventListener("click", function(){
     let introduction = document.getElementById("intro");
     introduction.remove();
 
     // 玩家名字等資料丟到sql
-    
-    // console.log(input_player_name.value);
-    save_game_result(input_player_name.value, 0); //玩家名字存到mysql
+    // save_game_result(input_player_name.value, 0); // 玩家名字存到mysql
     interval = setInterval(update_counter, 1000);
 
     document.body.classList.add("mem_game_start");
@@ -284,7 +257,7 @@ darkmode_toggle.addEventListener("change", function(){
 });
 
 // 計時器
-const cd_min = 2;
+const cd_min = 0.2;
 let cd_time = cd_min * 60;
 let interval;
 const counter = document.getElementById("counter");
@@ -300,6 +273,7 @@ function update_counter(){
 }
 
 function game_end() {
+    save_game_result(input_player_name.value, score);
     document.body.classList.remove("mem_game_start"); //元素要不要出現
     document.body.classList.add("mem_game_end");
     c1.remove();
@@ -336,16 +310,24 @@ again_btn.addEventListener("click", function(){
 // }
 // fetchCards();
 
-// 存遊玩結果
+// // 存遊玩結果-
+// async function save_game_result(player_name, player_score) {
+//     await fetch('http://localhost:3000/mem_player_record', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ name: player_name, score: player_score })
+//     });
+//     // alert('Game result saved!');
+// }
+
+// 存遊玩結果-玩家名字、更新分數
 async function save_game_result(player_name, player_score) {
     await fetch('http://localhost:3000/mem_player_record', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: player_name, score: player_score })
     });
-    // alert('Game result saved!');
 }
-
 
 // // test
 // fetch('http://localhost:3000/words')
