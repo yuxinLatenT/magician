@@ -151,6 +151,7 @@ function card_onclick(element){
 // 檢查答案
 let score = 0;
 let correct = 1;
+
 function check_ans(){
     console.log("check_ans()");
     
@@ -171,12 +172,19 @@ function check_ans(){
 
     if(correct == 1){
         score += 1;
+        update_score();
         hide_card();
     }
     else{
         back_card();
     }
     click_on_card_n = 0;
+}
+
+const player_s = document.getElementById("player_s");
+
+function update_score(){
+    player_s.innerHTML = score;
 }
 
 // 配對成功，把卡變不見
@@ -289,18 +297,18 @@ async function fetch_cards() {
     const words = await response.json();
 
     function set_card_text(card_id, card_index){
-        console.log("q is ",questions[card_index]);
-        console.log(words[questions[card_index][0]-1]);
-        console.log(words[questions[card_index][0]-1].Romanization);
-        console.log(words[questions[card_index][0]-1].hiragana);
-        // !!!
+        // console.log("q is ",questions[card_index]);
+        // console.log(words[questions[card_index][0]-1]);
+        // console.log(words[questions[card_index][0]-1].Romanization);
+        // console.log(words[questions[card_index][0]-1].hiragana);
+        
         if(questions[card_index][1] == 0){
             card_id.innerText = words[questions[card_index][0]-1].hiragana;
-            console.log("use hiragana");
+            // console.log("use hiragana");
         }
         else{
             card_id.innerText = words[questions[card_index][0]-1].Romanization;
-            console.log("use Romanization");
+            // console.log("use Romanization");
         }
     }
     set_card_text(c1, 0);
@@ -321,24 +329,6 @@ async function fetch_cards() {
     set_card_text(c16, 15);
     set_card_text(c17, 16);
     set_card_text(c18, 17);
-    // c1.innerText = words[questions[0][0]].hiragana;
-    // c2.innerText = words[questions[1][0]].hiragana;
-    // c3.innerText = words[questions[2][0]].hiragana;
-    // c4.innerText = words[questions[3][0]].hiragana;
-    // c5.innerText = words[questions[4][0]].hiragana;
-    // c6.innerText = words[questions[5][0]].hiragana;
-    // c7.innerText = words[questions[6][0]].hiragana;
-    // c8.innerText = words[questions[7][0]].hiragana;
-    // c9.innerText = words[questions[8][0]].hiragana;
-    // c10.innerText = words[questions[9][0]].hiragana;
-    // c11.innerText = words[questions[10][0]].hiragana;
-    // c12.innerText = words[questions[11][0]].hiragana;
-    // c13.innerText = words[questions[12][0]].hiragana;
-    // c14.innerText = words[questions[13][0]].hiragana;
-    // c15.innerText = words[questions[14][0]].hiragana;
-    // c16.innerText = words[questions[15][0]].hiragana;
-    // c17.innerText = words[questions[16][0]].hiragana;
-    // c18.innerText = words[questions[17][0]].hiragana;
 }
 fetch_cards();
 
