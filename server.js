@@ -47,7 +47,7 @@ app.get('/words', (req, res) => {
     });
 });
 
-// 從MySQL拿玩家分數資料放到伺服器
+// 從MySQL拿玩家排名資料放到伺服器
 app.get('/mem_ranking', (req, res) => {
     db.query("SELECT * FROM `mem_ranking`;", (err, results) => {
         if(err){
@@ -55,7 +55,7 @@ app.get('/mem_ranking', (req, res) => {
             return;
         }
         res.json(results);
-    })
+    });
 });
 
 // POST API
@@ -70,5 +70,66 @@ app.post('/mem_player_record', (req, res) => {
             return;
         }
         res.send('User added successfully');
-    })
+    });
 });
+
+// 檢查排名和決定要不要更新
+app.post('/mem_ranking', (req, res) => {
+    const {name, score} = req.body;
+    let ranking_data = [];
+    db.query("SELECT * FROM `mem_ranking`;", (err, results) => {
+        if(err){
+            res.status(500).send(err);
+            return;
+        }
+        let result = results;
+        // console.log("-------------");
+        // console.log(result);
+        // console.log(result[0]);
+        // console.log(result[0].score)
+        ranking_data.push(result[0].score);
+        ranking_data.push(result[1].score);
+        ranking_data.push(result[2].score);
+        ranking_data.push(result[3].score);
+        ranking_data.push(result[4].score);
+        // console.log("-------------");
+        // console.log("ranking_data : ", ranking_data);
+        
+        let rank = 5;
+        console.log("score = ", score);
+        for(let i=4; i>=0; i--){ // 逐一和排行榜比較
+            console.log(score, "vs", ranking_data[i]);
+            if(score > ranking_data[i]){
+                console.log("bigger");
+                rank = i;
+            }
+        }
+        console.log(rank);
+        if(rank != 5){ // 要更新排行榜
+            console.log("update");
+            for(let i=4; i>=rank; i--){
+                if(i == rank){
+                    update_ranking(name, score, i+1);
+                }
+                else{
+                    update_ranking(result[i-1].name, result[i-1].score, i+1);
+                }
+            }
+        }
+        else{
+            console.log("no update");
+        }
+    });
+    
+});
+
+function update_ranking(name_this, score_this, id_this){
+    console.log(name_this, score_this, id_this);
+    db.query("UPDATE `mem_ranking` SET `name` = ?, `score` = ? WHERE `id` = ?", [name_this, score_this, id_this], (err, result) => {
+        if(err){
+            console.log(err);
+            return;
+        }
+        console.log("update successfully");
+    });
+}

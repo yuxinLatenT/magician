@@ -1,4 +1,3 @@
-// here
 document.body.classList.remove("mem_game_start");
 document.body.classList.remove("mem_game_end");
 document.body.classList.remove("card_click");
@@ -40,8 +39,7 @@ function set_q_of_rounds(){
 set_q_of_rounds();
 
 let round = 0;
-
-// 出該場次的題目和設定答案
+// 出那一輪的題目和設定答案
 let q_in_this_round = [];
 let questions = [];
 let answers = [];
@@ -51,7 +49,7 @@ function set_questions(){
     q_in_this_round = [];
     questions = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],
                  [0,0],[0,0],[0,0],[0,0],[0,0],[0,0],
-                 [0,0],[0,0],[0,0],[0,0],[0,0],[0,0],];
+                 [0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
 
     answers = [0,0,0,0,0,0,
                0,0,0,0,0,0,
@@ -135,14 +133,11 @@ let correct = 1;
 
 function check_ans(){
     console.log("check_ans()");
-    
     let position_1_str = card_box[0][0]; // cxx
     let position_2_str = card_box[1][0]; // cyy
     // 只取id的數字部分
     let position_1 = position_1_str.slice(1); // xx
     let position_2 = position_2_str.slice(1); // yy
-    // console.log(position_1, position_2);
-    // console.log(answers[position_1-1], position_2-1);
     
     if(answers[position_1-1] == position_2-1){
         correct = 1;
@@ -150,7 +145,6 @@ function check_ans(){
     else{
         correct = 0;
     }
-
     if(correct == 1){
         score += 1;
         update_score();
@@ -202,7 +196,6 @@ function back_card(){
 // 遊戲是否開始以及行動
 const mem_start = document.getElementById("mem_start_btn");
 
-
 mem_start.addEventListener("click", function(){
     let introduction = document.getElementById("intro");
     introduction.remove();
@@ -212,10 +205,8 @@ mem_start.addEventListener("click", function(){
     document.body.classList.add("mem_game_start");
 });
 
-
-
 // 計時器
-const cd_min = 0.1;
+const cd_min = 0.2;
 let cd_time = cd_min * 60;
 let interval;
 const counter = document.getElementById("counter");
@@ -235,6 +226,7 @@ const input_player_name = document.getElementById("input_player_name");
 
 function game_end() {
     save_game_result(input_player_name.value, score);
+    check_ranking(input_player_name.value, score);
     document.body.classList.remove("mem_game_start"); //元素要不要出現
     document.body.classList.add("mem_game_end");
     c1.remove();
@@ -259,31 +251,22 @@ function game_end() {
 
 const again_btn = document.getElementById("again_btn");
 again_btn.addEventListener("click", function(){
-    //window.location.replace(location.href); // 重新載入網頁再玩一次
-    window.location.href = "memory_card.html";
+    window.location.href = "memory_card.html"; // 重新載入網頁再玩一次
 });
 
 const server_PORT = 3000;
 
 // 取得字卡資料
 async function fetch_cards() {
-    //const response = await fetch('http://localhost:3000/words');
     const response = await fetch(`http://localhost:${server_PORT}/words`);
     const words = await response.json();
 
     function set_card_text(card_id, card_index){
-        // console.log("q is ",questions[card_index]);
-        // console.log(words[questions[card_index][0]-1]);
-        // console.log(words[questions[card_index][0]-1].Romanization);
-        // console.log(words[questions[card_index][0]-1].hiragana);
-        
         if(questions[card_index][1] == 0){
             card_id.innerText = words[questions[card_index][0]-1].hiragana;
-            // console.log("use hiragana");
         }
         else{
             card_id.innerText = words[questions[card_index][0]-1].Romanization;
-            // console.log("use Romanization");
         }
     }
     set_card_text(c1, 0);
@@ -307,8 +290,8 @@ async function fetch_cards() {
 }
 fetch_cards();
 
-// 存遊玩結果-玩家名字、更新分數
-async function save_game_result(player_name, player_score) {
+// 存遊玩結果-玩家名字、分數
+async function save_game_result(player_name, player_score){
     await fetch(`http://localhost:${server_PORT}/mem_player_record`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -316,8 +299,11 @@ async function save_game_result(player_name, player_score) {
     });
 }
 
-// // test
-// fetch('http://localhost:3000/words')
-//     .then(response => response.json())
-//     .then(data => console.log('Words data:', data))
-//     .catch(error => console.error('Error fetching words:', error));
+// 檢查排名
+async function check_ranking(player_name, player_score){
+    await fetch(`http://localhost:${server_PORT}/mem_ranking`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: player_name, score: player_score })
+    });
+}
