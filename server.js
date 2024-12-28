@@ -4,9 +4,6 @@ const cors = require("cors"); //引入cor套件
 const app = express();
 const PORT = 3000;
 
-const setting = require("./setting.json");
-const mysql = require("mysql2");
-
 app.use(cors());
 
 app.get('/', (req, res) => {
@@ -18,6 +15,9 @@ app.listen(PORT, () => {
 });
 
 // MySQL
+const setting = require("./setting.json");
+const mysql = require("mysql2");
+
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -35,6 +35,8 @@ db.connect(err => {
 });
 
 // GET API
+
+// 從MySQL拿字卡資料放到伺服器
 app.get('/words', (req, res) => {
     db.query('SELECT * FROM `words`;', (err, results) => {
         if (err) {
@@ -45,9 +47,21 @@ app.get('/words', (req, res) => {
     });
 });
 
+// 從MySQL拿玩家分數資料放到伺服器
+app.get('/mem_ranking', (req, res) => {
+    db.query("SELECT * FROM `mem_ranking`;", (err, results) => {
+        if(err){
+            res.status(500).send(err);
+            return;
+        }
+        res.json(results);
+    })
+});
+
 // POST API
 app.use(express.json());
 
+// 傳資料到伺服器，再把伺服器上的資料推回去MySQL
 app.post('/mem_player_record', (req, res) => {
     const {name, score} = req.body;
     db.query("INSERT INTO mem_player_record (name, score) VALUES (?, ?)", [name, score], (err, result) => {
@@ -57,4 +71,4 @@ app.post('/mem_player_record', (req, res) => {
         }
         res.send('User added successfully');
     })
-})
+});
