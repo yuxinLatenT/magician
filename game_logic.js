@@ -206,7 +206,7 @@ mem_start.addEventListener("click", function(){
 });
 
 // 計時器
-const cd_min = 0.2;
+const cd_min = 2;
 let cd_time = cd_min * 60;
 let interval;
 const counter = document.getElementById("counter");

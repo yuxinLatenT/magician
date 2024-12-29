@@ -76,7 +76,6 @@ app.post('/mem_player_record', (req, res) => {
 // 檢查排名和決定要不要更新
 app.post('/mem_ranking', (req, res) => {
     const {name, score} = req.body;
-    let ranking_data = [];
     db.query("SELECT * FROM `mem_ranking`;", (err, results) => {
         if(err){
             res.status(500).send(err);
