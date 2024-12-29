@@ -18,7 +18,7 @@ function type_text_onclick(element){
     window.location.href = "type_text.html";
 }
 
-// 黑暗模式設定
+// 深色模式設定
 const darkmode_toggle = document.getElementById("darkmode_toggle");
 
 darkmode_toggle.addEventListener("change", function(){

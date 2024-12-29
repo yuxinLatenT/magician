@@ -83,32 +83,17 @@ app.post('/mem_ranking', (req, res) => {
             return;
         }
         let result = results;
-        // console.log("-------------");
-        // console.log(result);
-        // console.log(result[0]);
-        // console.log(result[0].score)
-        ranking_data.push(result[0].score);
-        ranking_data.push(result[1].score);
-        ranking_data.push(result[2].score);
-        ranking_data.push(result[3].score);
-        ranking_data.push(result[4].score);
-        // console.log("-------------");
-        // console.log("ranking_data : ", ranking_data);
-        
+
         let rank = 5;
-        console.log("score = ", score);
         for(let i=4; i>=0; i--){ // 逐一和排行榜比較
-            console.log(score, "vs", ranking_data[i]);
-            if(score > ranking_data[i]){
-                console.log("bigger");
+            if(score > result[i].score){
                 rank = i;
             }
         }
-        console.log(rank);
+
         if(rank != 5){ // 要更新排行榜
-            console.log("update");
             for(let i=4; i>=rank; i--){
-                if(i == rank){
+                if(i == rank){ // 新的資料
                     update_ranking(name, score, i+1);
                 }
                 else{
@@ -116,16 +101,15 @@ app.post('/mem_ranking', (req, res) => {
                 }
             }
         }
-        else{
-            console.log("no update");
-        }
     });
     
 });
 
+// 更新排行榜
 function update_ranking(name_this, score_this, id_this){
     console.log(name_this, score_this, id_this);
-    db.query("UPDATE `mem_ranking` SET `name` = ?, `score` = ? WHERE `id` = ?", [name_this, score_this, id_this], (err, result) => {
+    db.query("UPDATE `mem_ranking` SET `name` = ?, `score` = ? WHERE `id` = ?", 
+            [name_this, score_this, id_this], (err, result) => {
         if(err){
             console.log(err);
             return;
